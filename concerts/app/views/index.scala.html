@@ -1,0 +1,22 @@
+@(page: List[Event], moneyForm: Form[FilterPrice])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+@main("Hello"){
+  <table>
+    @for(p <- page) {
+      <tr>
+        <td>@p.name</td>
+        <td>@p.url</td>
+        <td>@p.salesStart</td>
+        <td>@p.salesEnd</td>
+        <td>@p.minPrice</td>
+        <td>@p.maxPrice</td>
+      </tr>
+    }
+  </table>
+
+@helper.form(action = routes.HomeController.filterByPrice) {
+  @helper.inputText(moneyForm("money"))
+  @helper.inputText(moneyForm("currency"))
+  @helper.CSRF.formField                     @* <- takes a RequestHeader    *@
+
+  <input type="submit" value="FILTER">
+}}
